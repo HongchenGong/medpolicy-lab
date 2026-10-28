@@ -10,7 +10,7 @@ function config(){
  return {url,key,bucket};
 }
 async function request(route:string,init:RequestInit={}){
- const {url,key}=config();const r=await fetch(url+'/storage/v1/'+route,{...init,headers:{apikey:key,Authorization:'Bearer '+key,...init.headers},signal:AbortSignal.timeout(60000)});return r;
+ const {url,key}=config();const r=await fetch(url+'/storage/v1/'+route,{...init,headers:{apikey:key,...(key.startsWith('sb_secret_')?{}:{Authorization:'Bearer '+key}),...init.headers},signal:AbortSignal.timeout(60000)});return r;
 }
 export async function ensurePrivateBucket(){
  const {bucket}=config();let r=await request('bucket/'+bucket);

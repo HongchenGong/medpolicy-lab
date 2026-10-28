@@ -33,7 +33,7 @@ Supabase 建议选与网站接近的区域。DATABASE_URL 使用 Session pooler 
 
 公开仓库不含任何真实姓名、完整学号、默认密码、课程原件或数据库。初始化配置中的 members 数组共12项，每项为 `[姓名, 学号字符串]`，第一位为管理员，后11位依次负责R01—R11；memberPassword指定成员初始密码。仅示例结构，不在文档中写真实值。
 
-cloud-start 在启动前验证数据库和私有存储桶。首次启动只在空数据库初始化；再次部署不会重置账号或覆盖研究历史。Cookie自动启用Secure，固定HTTPS来源；初始化秘密不会传给运行中的Web子进程。数据库位于 medpolicy schema，不通过Supabase的 public Data API 暴露。文件必须先通过本站服务端权限校验才能下载。
+cloud-start 在启动前验证数据库和私有存储桶。首次启动只在空数据库初始化；再次部署不会重置账号或覆盖研究历史。Cookie自动启用Secure，固定HTTPS来源；初始化秘密不会传给运行中的Web子进程。数据库位于 medpolicy schema，不通过Supabase的 public Data API 暴露，并启用RLS；没有客户端访问策略，仅服务端数据库所有者连接可操作。文件必须先通过本站服务端权限校验才能下载。
 
 ## 已有本地数据
 

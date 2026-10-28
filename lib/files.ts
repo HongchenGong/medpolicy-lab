@@ -81,7 +81,7 @@ export async function saveFiles(files: PreparedFile[], owner: {
         (await run('INSERT INTO files(id,submission_id,resource_id,review_id,original_name,storage_name,mime,size,sha256,uploaded_by,created_at) VALUES(?,?,?,?,?,?,?,?,?,?,?)', f.id, owner.submission || null, owner.resource || null, owner.review || null, f.name, f.storage, f.mime, f.bytes.length, f.hash, user, now()));
     }
 }
-export async function cleanup(files:PreparedFile[]){for(const f of files){try{await removeObject(f.storage);}catch{console.error('[storage] upload cleanup failed');}}}
+export async function cleanup(files:PreparedFile[]){for(const f of files){try{if(!await one('SELECT id FROM files WHERE storage_name=?',f.storage))await removeObject(f.storage);}catch{console.error('[storage] unconfirmed upload retained for recovery');}}}
 export async function readStored(file:Row){return getObject(file.storage_name,file.sha256);}
 export async function canReadSubmission(user: Row, s: Row) { return user.role === 'ADMIN' || s.submitted_by === user.id || (await assignee(s.module_id)) === user.id; }
 export async function canReadFile(user: Row, file: Row) {
