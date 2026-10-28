@@ -1,0 +1,45 @@
+{
+  "name": "medpolicy-lab",
+  "version": "5.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev --hostname 127.0.0.1",
+    "build": "next build",
+    "start": "next start --hostname 127.0.0.1",
+    "init": "node --env-file-if-exists=.env --env-file-if-exists=.env.local --import tsx scripts/init.ts",
+    "import:course": "node --env-file-if-exists=.env --env-file-if-exists=.env.local --import tsx scripts/import-course.ts",
+    "test": "tsx --test tests/*.test.ts",
+    "test:browser": "tsx tests/browser.e2e.ts",
+    "typecheck": "tsc --noEmit",
+    "backup": "node --env-file-if-exists=.env --env-file-if-exists=.env.local --import tsx scripts/backup.ts",
+    "start:cloud": "node --import tsx scripts/cloud-start.ts",
+    "check:publish": "node scripts/check-publish.mjs",
+    "test:postgres": "MEDPOLICY_TEST_DB=postgres tsx --test tests/acceptance.test.ts"
+  },
+  "dependencies": {
+    "next": "^16.2.6",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "lucide-react": "^0.468.0",
+    "adm-zip": "^0.5.16",
+    "exceljs": "^4.4.0",
+    "zod": "^4.0.0",
+    "pg": "^8.16.0",
+    "archiver": "^7.0.1"
+  },
+  "devDependencies": {
+    "@types/adm-zip": "^0.5.7",
+    "@types/node": "^24.0.0",
+    "@types/react": "^19.2.0",
+    "@types/react-dom": "^19.2.0",
+    "typescript": "^5.9.0",
+    "tsx": "^4.20.0",
+    "@playwright/test": "^1.56.0",
+    "@types/pg": "^8.15.0",
+    "@electric-sql/pglite": "^0.3.0",
+    "@types/archiver": "^6.0.3"
+  },
+  "engines": {
+    "node": ">=24.0.0"
+  }
+}

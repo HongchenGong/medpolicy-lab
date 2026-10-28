@@ -1,0 +1,27 @@
+services:
+  - type: web
+    name: medpolicy-lab
+    runtime: node
+    plan: free
+    region: singapore
+    buildCommand: npx --yes pnpm@11.25.0 install --frozen-lockfile --prod=false && npx --yes pnpm@11.25.0 build
+    startCommand: npm run start:cloud
+    healthCheckPath: /api/health
+    autoDeployTrigger: checksPass
+    envVars:
+      - key: NODE_VERSION
+        value: 24.22.1
+      - key: NEXT_TELEMETRY_DISABLED
+        value: "1"
+      - key: DATABASE_URL
+        sync: false
+      - key: SUPABASE_URL
+        sync: false
+      - key: SUPABASE_SERVICE_ROLE_KEY
+        sync: false
+      - key: ADMIN_INITIAL_PASSWORD
+        sync: false
+      - key: SEED_CONFIG_JSON
+        sync: false
+      - key: STORAGE_BUCKET
+        value: medpolicy-private

@@ -1,0 +1,15 @@
+node_modules
+.next
+.git
+.env
+.env.local
+data
+backups
+tmp
+output
+test-results
+playwright-report
+*.tsbuildinfo
+
+.env*
+*.private.*
